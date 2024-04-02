@@ -150,10 +150,49 @@ GROUP BY customer_id;
 
 -- NULLIF(date, '1970-01-01')
 
-# Missing Data
+# Pivot Table with CASE
+SELECT c.customer_id, c.first_name, c.last_name,
+		SUM(p.amount) AS total_amount
+	FROM customer AS c
+		INNER JOIN payment AS p
+			ON c.customer_id = p.customer_id
+GROUP BY 1;
 
+# for instance:
+-- SELECT order date,
+-- 		SUM(CASE WHEN product = 'shirt' THEN order_amount
+-- 			ELSE 0
+-- 		END) AS shirts_amount
+-- 		SUM(CASE WHEN product = 'shirt' THEN order_amount
+-- 			ELSE 0
+-- 		END) AS shirts_amount
+-- 		SUM(CASE WHEN product = 'shirt' THEN order_amount
+-- 			ELSE 0
+-- 		END) AS shirts_amount
+-- 	FROM orders
+-- GROUP BY 1;
 
+# Unpivoting with UNION Statements
 
+USE world;
+
+SELECT Name, Population, Capital
+	FROM country;
+
+ SELECT Population
+	>= 'madrid' AS country_pop
+	FROM country
+		UNION ALL
+SELECT Population
+		= 'tokyo' AS country_pop
+	FROM country
+		UNION ALL
+SELECT Population
+		= 'auckland' AS country_pop
+	FROM country;
+    
+SELECT Name, Population, Capital
+	FROM country
 
 
 
